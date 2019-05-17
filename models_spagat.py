@@ -1,13 +1,13 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from layers_spgat import SpGraphAttentionLayer
+from layers_spagat import SpGraphAttentionLayer
 
 
-class SpGAT(nn.Module):
+class SpaGAT(nn.Module):
     def __init__(self, nfeat, nhid, nclass, dropout, alpha, nheads):
         """Sparse version of GAT."""
-        super(SpGAT, self).__init__()
+        super(SpaGAT, self).__init__()
         self.dropout = dropout
         
         self.attentions = [SpGraphAttentionLayer(nfeat, 

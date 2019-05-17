@@ -173,22 +173,6 @@ class SpGraphAttentionLayer(nn.Module):
         
         if mode=="GAT":
             return self.gat_layer(input, adj, genPath=genPath)
-        elif mode=="PathAT":
+        elif mode=="SPAGAN":
             return self.pathat_layer(input, pathM=pathM, pathlens=pathlens)
         
-
-    def __repr__(self):
-        return self.__class__.__name__ + ' (' \
-               + str(self.in_features) + ' -> ' \
-               + str(self.out_features) + ')'
-
-
-if __name__=="__main__":
-    import torch.autograd.gradcheck as gradcheck
-    special_spmm = SpecialSpmm()
-    edge = torch.Tensor([[0,1,2,3],[0,1,2,3]])
-    edge_e = torch.tensor(np.array([0.001,0.002,0.003,0.004]), dtype=torch.float,  requires_grad=True)
-    size = torch.Size([4, 4])
-    b = torch.ones(size=(4,1))
-    test = gradcheck(special_spmm, [edge, edge_e, size, b], eps=1e-6, atol=1e-4)
-    print("spmm gradtest:", test)

@@ -68,7 +68,7 @@ if not os.path.isdir(matpath):
     os.makedirs(matpath)
 
 from utils import accuracy, load_data_orggcn, load_pathm, gen_pathm
-from models_spgat import SpGAT
+from models_spagat import SpaGAT
 
 # Load data
 adj, features, labels, idx_train, idx_val, idx_test = load_data_orggcn(args.dataset)
@@ -122,7 +122,7 @@ Ndeg = 0.5
 
 ##### one model test #####
 for var in range(args.var_it):
-    model = SpGAT(nfeat=features.shape[1],
+    model = SpaGAT(nfeat=features.shape[1],
             nhid=args.hidden,
             nclass=labels.max().item() + 1,
             dropout=args.dropout,
@@ -169,8 +169,8 @@ for var in range(args.var_it):
                 test(genPath=genPath, logging=True, mode=mode)
                 gen_pathm([8], matpath=matpath, Nratio=Nratio, Ndeg=Ndeg)
                 pathM = load_pathm(args.dataset, matpath=matpath)
-                mode = 'PathAT'
-            elif mode == 'PathAT':
+                mode = 'SPAGAN'
+            elif mode == 'SPAGAN':
                 test(logging=True, mode=mode)
                 break
             startEpoch = epoch
