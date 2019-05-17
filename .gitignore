@@ -1,0 +1,4 @@
+models/
+models_path/
+__pycache__/
+*.pyc
